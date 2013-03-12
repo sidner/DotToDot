@@ -10,3 +10,6 @@
 
 #Java binaries
 *.class
+
+#JavaCC Trash
+*.jj

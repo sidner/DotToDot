@@ -1,0 +1,147 @@
+options
+{
+LOOKAHEAD=1;
+}
+PARSER_BEGIN(Dot2Dot)
+public class Dot2Dot
+{
+public static void main(String args[]) throws ParseException {
+	Dot2Dot dot2dot = new Dot2Dot(System.in);
+	//SimpleNode root = dot2dot.Expression(); // devolve referência para o nó raiz da árvore
+	//root.dump(""); // imprime no ecrã a árvore
+	}
+}
+PARSER_END(Dot2Dot)
+
+SKIP :
+{
+  //Semicolons aid readability but are not required except in the rare case that a named subgraph
+  //with no body immediately preceeds an anonymous subgraph
+  " " | "\r" | "\t" 
+}
+// definição dos tokens (símbolos terminais)
+TOKEN:
+{
+  //What comes after this token is ignored if it is preceded by a <LF>
+  < CARDINAL: "#" >
+}
+TOKEN :
+{
+ < INTEGER : (["0" - "9"])+ >
+ | < LF : "\n" >
+}
+TOKEN [IGNORE_CASE] :
+{
+  < GRAPH : "digraph" | "graph" > |
+  < STRICT: "strict" > |
+  < ATTR_SMT: "graph" | "node" | "edge" > |
+  < SUBGRAPH: "subgraph" >
+}
+TOKEN :{  < COMPASS_PT: "n" | "ne" | "e" | "se" | "s" | "sw" | "w" | "nw" | "c" | "_" >
+}
+TOKEN :
+{
+  < PROPERTIES: "style" | "color" | "label" | "shape" >
+}
+TOKEN :
+{
+  < NODE: "node" >
+}
+TOKEN :
+{
+  //TODO ID use cases incomplete
+  < ID: ( ["a"-"z","A"-"Z","_"](<INTEGER>)?)+ >  		  
+}
+TOKEN:
+{  	< EDGEOP_DIRECTED: "->" > |
+  	< EDGEOP_UNDIRECTED: "--" >
+}
+
+TOKEN :
+{
+  < LBRACK: ("{" (<LF>)? )> |
+  < RBRACK: "}" > |
+  < LSQBRACK: "[" > |
+  < RSQBRACK: "]" > |
+  < COLON: ":" > |
+  < SEMICOLON: ";" > |
+  < EQUALS: "=" > |
+  < COMMA: "," > 
+}
+
+SimpleNode Expression(): {}
+{
+	Graph() {return jjtThis;} // código Java entre chavetas
+}
+
+void Graph(): {}
+{
+  [< STRICT >] < GRAPH > [< ID >] < LBRACK > [Stmt_list()] < RBRACK >
+}
+
+void Stmt_list(): {}
+{
+  Stmt() [< SEMICOLON >] [Stmt_list()] 
+}
+
+void Stmt(): {}
+{
+  	LOOKAHEAD(2)
+	Node_stmt()|
+	LOOKAHEAD(2)
+	Edge_stmt()
+	| Attr_smt()
+	| < ID > < EQUALS > < ID >
+	| Subgraph()
+}
+
+
+void Node_stmt(): {}
+{
+  Node_id()[Attr_list()]
+}
+
+void Edge_stmt(): {}
+{
+  [Node_id() | Subgraph()] EdgeRHS() [Attr_list()]
+}
+
+void Attr_smt(): {}
+{
+  < ATTR_SMT > Attr_list()
+}
+
+void Node_id(): {}
+{
+  < ID > [Port()]
+}
+
+void Attr_list(): {}
+{
+  < LSQBRACK > [A_list()] < RSQBRACK > [Attr_list()] 
+}
+
+void A_list(): {}
+{	< ID > [< EQUALS > < ID >][< COMMA >][A_list()]
+}
+
+void Subgraph(): {}
+{	[< SUBGRAPH > [< ID >]] < LBRACK > [Stmt_list()] < RBRACK >
+}
+
+void EdgeRHS(): {}
+{
+  (< EDGEOP_DIRECTED > | < EDGEOP_UNDIRECTED >) (Node_id() | Subgraph()) [EdgeRHS()]}
+
+void Port(): {}
+{
+  < COLON > ( < ID > [< COLON > < COMPASS_PT >] | < COMPASS_PT > )}
+
+
+
+
+
+
+
+
+
