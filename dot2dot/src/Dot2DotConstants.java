@@ -9,47 +9,45 @@ public interface Dot2DotConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int CARDINAL = 4;
+  int CARDINAL = 6;
   /** RegularExpression Id. */
-  int INTEGER = 5;
+  int INTEGER = 7;
   /** RegularExpression Id. */
-  int LF = 6;
+  int LF = 8;
   /** RegularExpression Id. */
-  int GRAPH = 7;
+  int GRAPH = 9;
   /** RegularExpression Id. */
-  int STRICT = 8;
+  int STRICT = 10;
   /** RegularExpression Id. */
-  int ATTR_SMT = 9;
+  int ATTR_SMT = 11;
   /** RegularExpression Id. */
-  int SUBGRAPH = 10;
+  int SUBGRAPH = 12;
   /** RegularExpression Id. */
-  int COMPASS_PT = 11;
+  int COMPASS_PT = 13;
   /** RegularExpression Id. */
-  int PROPERTIES = 12;
+  int NODE = 14;
   /** RegularExpression Id. */
-  int NODE = 13;
+  int ID = 15;
   /** RegularExpression Id. */
-  int ID = 14;
+  int EDGEOP_DIRECTED = 16;
   /** RegularExpression Id. */
-  int EDGEOP_DIRECTED = 15;
+  int EDGEOP_UNDIRECTED = 17;
   /** RegularExpression Id. */
-  int EDGEOP_UNDIRECTED = 16;
+  int LBRACK = 18;
   /** RegularExpression Id. */
-  int LBRACK = 17;
+  int RBRACK = 19;
   /** RegularExpression Id. */
-  int RBRACK = 18;
+  int LSQBRACK = 20;
   /** RegularExpression Id. */
-  int LSQBRACK = 19;
+  int RSQBRACK = 21;
   /** RegularExpression Id. */
-  int RSQBRACK = 20;
+  int COLON = 22;
   /** RegularExpression Id. */
-  int COLON = 21;
+  int SEMICOLON = 23;
   /** RegularExpression Id. */
-  int SEMICOLON = 22;
+  int EQUALS = 24;
   /** RegularExpression Id. */
-  int EQUALS = 23;
-  /** RegularExpression Id. */
-  int COMMA = 24;
+  int COMMA = 25;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -60,6 +58,8 @@ public interface Dot2DotConstants {
     "\" \"",
     "\"\\r\"",
     "\"\\t\"",
+    "\"\\\"\"",
+    "\"\\u0000\"",
     "\"#\"",
     "<INTEGER>",
     "\"\\n\"",
@@ -68,7 +68,6 @@ public interface Dot2DotConstants {
     "<ATTR_SMT>",
     "\"subgraph\"",
     "<COMPASS_PT>",
-    "<PROPERTIES>",
     "\"node\"",
     "<ID>",
     "\"->\"",
