@@ -169,15 +169,42 @@ public static void main(String args[]) throws ParseException,IOException {
   }
 
   final public void Nova() throws ParseException {
-    jj_consume_token(ID);
-    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case EQUALS:
-      jj_consume_token(EQUALS);
-      jj_consume_token(ID);
-      break;
-    default:
-      jj_la1[6] = jj_gen;
-      Edge_stmt_temp();
+              /*@bgen(jjtree) Nova */
+              ASTNova jjtn000 = new ASTNova(JJTNOVA);
+              boolean jjtc000 = true;
+              jjtree.openNodeScope(jjtn000);Token id = null;
+    try {
+      id = jj_consume_token(ID);
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case EQUALS:
+        jj_consume_token(EQUALS);
+        jj_consume_token(ID);
+        break;
+      default:
+        jj_la1[6] = jj_gen;
+        Edge_stmt_temp();
+      }
+    jjtree.closeNodeScope(jjtn000, true);
+    jjtc000 = false;
+    jjtn000.value = id.image;
+    } catch (Throwable jjte000) {
+    if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+    if (jjte000 instanceof RuntimeException) {
+      {if (true) throw (RuntimeException)jjte000;}
+    }
+    if (jjte000 instanceof ParseException) {
+      {if (true) throw (ParseException)jjte000;}
+    }
+    {if (true) throw (Error)jjte000;}
+    } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
     }
   }
 

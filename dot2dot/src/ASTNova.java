@@ -10,5 +10,7 @@ class ASTNova extends SimpleNode {
     super(p, id);
   }
 
+  public String toString() { return value.toString(); }
+
 }
 /* JavaCC - OriginalChecksum=c2295d82a16d35056fb973883534afd1 (do not edit this line) */

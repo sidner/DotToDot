@@ -126,8 +126,9 @@ void Stmt() #void: {}
 	| < ID > < EQUALS > < ID >
 	| Subgraph()  */
 }
-void Nova() #void: {}{
-  < ID > (< EQUALS > <ID > | Edge_stmt_temp())  }
+void Nova(): {Token id = null;}{
+  id = < ID > (< EQUALS > <ID > | Edge_stmt_temp())
+  { jjtThis.value = id.image; }  }
 
 
 /*

@@ -4,17 +4,19 @@ public interface Dot2DotTreeConstants
   public int JJTDOTGRAPH = 0;
   public int JJTGRAPH = 1;
   public int JJTVOID = 2;
-  public int JJTEDGE_STMT = 3;
-  public int JJTNODE_ID = 4;
-  public int JJTSUBGRAPH = 5;
-  public int JJTEDGERHS = 6;
-  public int JJTPORT = 7;
+  public int JJTNOVA = 3;
+  public int JJTEDGE_STMT = 4;
+  public int JJTNODE_ID = 5;
+  public int JJTSUBGRAPH = 6;
+  public int JJTEDGERHS = 7;
+  public int JJTPORT = 8;
 
 
   public String[] jjtNodeName = {
     "DotGraph",
     "Graph",
     "void",
+    "Nova",
     "Edge_stmt",
     "Node_id",
     "Subgraph",
@@ -22,4 +24,4 @@ public interface Dot2DotTreeConstants
     "Port",
   };
 }
-/* JavaCC - OriginalChecksum=27cc1d85330bb273e351cd73c17eeb7e (do not edit this line) */
+/* JavaCC - OriginalChecksum=6c96148621b3dd700a10aa9ab5c5c3e6 (do not edit this line) */
