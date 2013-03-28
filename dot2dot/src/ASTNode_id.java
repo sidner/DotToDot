@@ -10,5 +10,7 @@ class ASTNode_id extends SimpleNode {
     super(p, id);
   }
 
+  public String toString() { return value.toString(); }
+  
 }
 /* JavaCC - OriginalChecksum=997b293ada5ff75a1072e8312f27640c (do not edit this line) */

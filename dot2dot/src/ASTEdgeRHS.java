@@ -10,5 +10,7 @@ class ASTEdgeRHS extends SimpleNode {
     super(p, id);
   }
 
+  public String toString() { return value.toString(); }
+  
 }
 /* JavaCC - OriginalChecksum=bd79d5ad454091b039b132a41b948b51 (do not edit this line) */

@@ -37,7 +37,7 @@ public static void main(String args[]) throws ParseException,IOException {
         InputStream input = new ByteArrayInputStream(temp.getBytes());
 
         Dot2Dot dot2dot = new Dot2Dot(input);
-	SimpleNode root = dot2dot.Expression(); // devolve referência para o nó raiz da árvore
+	SimpleNode root = dot2dot.DotGraph(); // devolve referência para o nó raiz da árvore
 	root.dump(""); // imprime no ecrã a árvore
 	}
 }
@@ -97,7 +97,7 @@ TOKEN :
   < COMMA: "," > 
 }
 
-SimpleNode Expression(): {} 
+SimpleNode DotGraph(): {} 
 {
 	Graph() {return jjtThis;} // código Java entre chavetas
 }
@@ -136,7 +136,7 @@ void Node_stmt(): {}
   Node_id()[Attr_list()]
 }*/
 
-void Edge_stmt_temp(): {}
+void Edge_stmt_temp() #void: {}
 {	[Port()] (Temo() | [Attr_list()])
 }
 void Edge_stmt(): {}
@@ -145,7 +145,7 @@ void Edge_stmt(): {}
  /* [Node_id() | Subgraph()] EdgeRHS() [Attr_list()] */
 }
 
-void Attr_smt(): {}
+void Attr_smt() #void: {}
 {
   < ATTR_SMT > Attr_list()
 }
@@ -156,12 +156,12 @@ void Node_id(): {Token id;}
   { jjtThis.value = id.image; }
 }
 
-void Attr_list(): {}
+void Attr_list() #void: {}
 {
   < LSQBRACK > [A_list()] < RSQBRACK > [Attr_list()] 
 }
 
-void A_list(): {}
+void A_list() #void: {}
 {	< ID > [ < EQUALS > < ID >] [< COMMA >] [A_list()]
 }
 
@@ -169,13 +169,13 @@ void Subgraph(): {}
 {	[< SUBGRAPH > [< ID >]] < LBRACK > Stmt_list() < RBRACK >
 }
 
-void Temo(): {}
+void Temo() #void: {}
 {
   EdgeRHS() [Attr_list()]}
 
-void EdgeRHS(): {}
+void EdgeRHS(): {Token directed = null; Token undirected = null;}
 {
-  (< EDGEOP_DIRECTED > | < EDGEOP_UNDIRECTED >) (Node_id() | Subgraph()) [EdgeRHS()]}
+  ( (directed = < EDGEOP_DIRECTED > { jjtThis.value = directed.image; }) | (undirected = < EDGEOP_UNDIRECTED > { jjtThis.value = undirected.image; }) ) (Node_id() | Subgraph()) [EdgeRHS()]}
 
 void Port(): {}
 {
