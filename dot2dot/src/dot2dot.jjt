@@ -11,7 +11,7 @@ import java.io.*;
 public class Dot2Dot
 {
   
-public static void main(String args[]) throws ParseException {
+public static void main(String args[]) throws ParseException,IOException {
 	  String dataLine = "";
         String temp = "";
         
@@ -102,17 +102,18 @@ SimpleNode Expression(): {}
 	Graph() {return jjtThis;} // código Java entre chavetas
 }
 
-void Graph(): {}
+void Graph(): {Token id = null;}
 {
-  [< STRICT >] < GRAPH > [< ID >] < LBRACK > [Stmt_list()] < RBRACK >
+  [< STRICT >] < GRAPH > [id = < ID >] < LBRACK > [Stmt_list()] < RBRACK >
+  { jjtThis.value = id.image; }
 }
 
-void Stmt_list(): {}
+void Stmt_list() #void: {}
 {
-  Stmt() [< SEMICOLON >] [Stmt_list()]  
+  Stmt() [< SEMICOLON >] [Stmt_list()] 
 }
 
-void Stmt(): {}
+void Stmt() #void: {}
 {
 	 Attr_smt()
 	| Subgraph()
@@ -125,7 +126,7 @@ void Stmt(): {}
 	| < ID > < EQUALS > < ID >
 	| Subgraph()  */
 }
-void Nova(): {}{
+void Nova() #void: {}{
   < ID > (< EQUALS > <ID > | Edge_stmt_temp())  }
 
 
@@ -149,9 +150,10 @@ void Attr_smt(): {}
   < ATTR_SMT > Attr_list()
 }
 
-void Node_id(): {}
+void Node_id(): {Token id;}
 {
-  < ID > [Port()]
+  id = < ID > [Port()]
+  { jjtThis.value = id.image; }
 }
 
 void Attr_list(): {}

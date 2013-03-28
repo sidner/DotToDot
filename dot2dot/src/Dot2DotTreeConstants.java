@@ -3,27 +3,23 @@ public interface Dot2DotTreeConstants
 {
   public int JJTEXPRESSION = 0;
   public int JJTGRAPH = 1;
-  public int JJTSTMT_LIST = 2;
-  public int JJTSTMT = 3;
-  public int JJTNOVA = 4;
-  public int JJTEDGE_STMT_TEMP = 5;
-  public int JJTEDGE_STMT = 6;
-  public int JJTATTR_SMT = 7;
-  public int JJTNODE_ID = 8;
-  public int JJTATTR_LIST = 9;
-  public int JJTA_LIST = 10;
-  public int JJTSUBGRAPH = 11;
-  public int JJTTEMO = 12;
-  public int JJTEDGERHS = 13;
-  public int JJTPORT = 14;
+  public int JJTVOID = 2;
+  public int JJTEDGE_STMT_TEMP = 3;
+  public int JJTEDGE_STMT = 4;
+  public int JJTATTR_SMT = 5;
+  public int JJTNODE_ID = 6;
+  public int JJTATTR_LIST = 7;
+  public int JJTA_LIST = 8;
+  public int JJTSUBGRAPH = 9;
+  public int JJTTEMO = 10;
+  public int JJTEDGERHS = 11;
+  public int JJTPORT = 12;
 
 
   public String[] jjtNodeName = {
     "Expression",
     "Graph",
-    "Stmt_list",
-    "Stmt",
-    "Nova",
+    "void",
     "Edge_stmt_temp",
     "Edge_stmt",
     "Attr_smt",
@@ -36,4 +32,4 @@ public interface Dot2DotTreeConstants
     "Port",
   };
 }
-/* JavaCC - OriginalChecksum=cd5d860ab9595440574283e14b8daf88 (do not edit this line) */
+/* JavaCC - OriginalChecksum=ef66ccba34029ed0c5d677b00dd7db3f (do not edit this line) */

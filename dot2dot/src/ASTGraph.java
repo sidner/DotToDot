@@ -10,5 +10,7 @@ class ASTGraph extends SimpleNode {
     super(p, id);
   }
 
+  public String toString() { return (String) value; }
+  
 }
 /* JavaCC - OriginalChecksum=136071535166a3e0a5cd8e6c85efe1d5 (do not edit this line) */

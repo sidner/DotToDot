@@ -1,14 +1,44 @@
 options
 {
 LOOKAHEAD=1;
+STATIC = false;
+MULTI = true;
 }
 PARSER_BEGIN(Dot2Dot)
+import java.io.*;
+
+
 public class Dot2Dot
 {
-public static void main(String args[]) throws ParseException {
-	Dot2Dot dot2dot = new Dot2Dot(System.in);
-	//SimpleNode root = dot2dot.Expression(); // devolve referência para o nó raiz da árvore
-	//root.dump(""); // imprime no ecrã a árvore
+  
+public static void main(String args[]) throws ParseException,IOException {
+	  String dataLine = "";
+        String temp = "";
+        
+        File inFile = new File(args[0]);
+        BufferedReader bf = null;
+		try {
+			bf = new BufferedReader(new InputStreamReader (new FileInputStream(inFile)));
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    
+			while((dataLine=bf.readLine()) != null){
+					temp += dataLine;
+			 }
+        try {
+			bf.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        InputStream input = new ByteArrayInputStream(temp.getBytes());
+
+        Dot2Dot dot2dot = new Dot2Dot(input);
+	SimpleNode root = dot2dot.Expression(); // devolve referência para o nó raiz da árvore
+	root.dump(""); // imprime no ecrã a árvore
 	}
 }
 PARSER_END(Dot2Dot)
@@ -17,7 +47,7 @@ SKIP :
 {
   //Semicolons aid readability but are not required except in the rare case that a named subgraph
   //with no body immediately preceeds an anonymous subgraph
-  " " | "\r" | "\t" 
+  " " | "\r" | "\t" |"\"" |"\0"
 }
 // definição dos tokens (símbolos terminais)
 TOKEN:
@@ -39,10 +69,7 @@ TOKEN [IGNORE_CASE] :
 }
 TOKEN :{  < COMPASS_PT: "n" | "ne" | "e" | "se" | "s" | "sw" | "w" | "nw" | "c" | "_" >
 }
-TOKEN :
-{
-  < PROPERTIES: "style" | "color" | "label" | "shape" >
-}
+
 TOKEN :
 {
   < NODE: "node" >
@@ -50,7 +77,8 @@ TOKEN :
 TOKEN :
 {
   //TODO ID use cases incomplete
-  < ID: ( ["a"-"z","A"-"Z","_"](<INTEGER>)?)+ >  		  
+  < ID: ( ["a"-"z","A"-"Z","_"](<INTEGER>)?)+ >  
+  
 }
 TOKEN:
 {  	< EDGEOP_DIRECTED: "->" > |
@@ -69,41 +97,52 @@ TOKEN :
   < COMMA: "," > 
 }
 
-SimpleNode Expression(): {}
+SimpleNode Expression(): {} 
 {
 	Graph() {return jjtThis;} // código Java entre chavetas
 }
 
-void Graph(): {}
+void Graph(): {Token id = null;}
 {
-  [< STRICT >] < GRAPH > [< ID >] < LBRACK > [Stmt_list()] < RBRACK >
+  [< STRICT >] < GRAPH > [id = < ID >] < LBRACK > [Stmt_list()] < RBRACK >
+  { jjtThis.value = id.image; }
 }
 
-void Stmt_list(): {}
+void Stmt_list() #void: {}
 {
   Stmt() [< SEMICOLON >] [Stmt_list()] 
 }
 
-void Stmt(): {}
+void Stmt() #void: {}
 {
-  	LOOKAHEAD(2)
-	Node_stmt()|
-	LOOKAHEAD(2)
+	 Attr_smt()
+	| Subgraph()
+	| Nova()
+
+
+/*	Node_stmt()|
 	Edge_stmt()
 	| Attr_smt()
 	| < ID > < EQUALS > < ID >
-	| Subgraph()
+	| Subgraph()  */
 }
+void Nova() #void: {}{
+  < ID > (< EQUALS > <ID > | Edge_stmt_temp())  }
 
 
+/*
 void Node_stmt(): {}
 {
   Node_id()[Attr_list()]
-}
+}*/
 
+void Edge_stmt_temp(): {}
+{	[Port()] (Temo() | [Attr_list()])
+}
 void Edge_stmt(): {}
 {
-  [Node_id() | Subgraph()] EdgeRHS() [Attr_list()]
+  Edge_stmt_temp() | (Subgraph() Temo())      
+ /* [Node_id() | Subgraph()] EdgeRHS() [Attr_list()] */
 }
 
 void Attr_smt(): {}
@@ -111,9 +150,10 @@ void Attr_smt(): {}
   < ATTR_SMT > Attr_list()
 }
 
-void Node_id(): {}
+void Node_id(): {Token id;}
 {
-  < ID > [Port()]
+  id = < ID > [Port()]
+  { jjtThis.value = id.image; }
 }
 
 void Attr_list(): {}
@@ -122,12 +162,16 @@ void Attr_list(): {}
 }
 
 void A_list(): {}
-{	< ID > [< EQUALS > < ID >][< COMMA >][A_list()]
+{	< ID > [ < EQUALS > < ID >] [< COMMA >] [A_list()]
 }
 
 void Subgraph(): {}
-{	[< SUBGRAPH > [< ID >]] < LBRACK > [Stmt_list()] < RBRACK >
+{	[< SUBGRAPH > [< ID >]] < LBRACK > Stmt_list() < RBRACK >
 }
+
+void Temo(): {}
+{
+  EdgeRHS() [Attr_list()]}
 
 void EdgeRHS(): {}
 {
