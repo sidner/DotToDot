@@ -77,7 +77,7 @@ TOKEN :
 TOKEN :
 {
   //TODO ID use cases incomplete
-  < ID: ( ["a"-"z","A"-"Z","_"](<INTEGER>)?)+ >  
+  < ID: ( ["a"-"z","A"-"Z","_","#"](<INTEGER>)?)+ >  
   
 }
 TOKEN:

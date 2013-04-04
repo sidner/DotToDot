@@ -23,11 +23,31 @@ public class TestCase {
 	public void comTypes() throws ParseException, IOException, Throwable{
 		String texto2[] = new String[1]; 
 				texto2[0]="src/texto2.dot";
-		
-		
 			Dot2Dot.main(texto2);
-		
-		
 	}
+	
+	
+	@Test
+	public void conflitosPedro() throws ParseException, IOException, Throwable{
+		String texto3[] = new String[1]; 
+				texto3[0]="src/texto3.dot";
+			Dot2Dot.main(texto3);
+	}
+	
+	@Test
+	public void test4() throws ParseException, IOException, Throwable{
+		String texto4[] = new String[1]; 
+				texto4[0]="src/texto4.dot";
+			Dot2Dot.main(texto4);
+	}
+	
+	@Test
+	public void maisDificil() throws ParseException, IOException, Throwable{
+		String texto5[] = new String[1]; 
+				texto5[0]="src/texto5.dot";
+			Dot2Dot.main(texto5);
+	}
+	
+	
 
 }
