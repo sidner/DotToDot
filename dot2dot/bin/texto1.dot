@@ -1,5 +1,5 @@
 graph ethane{
-     C_0 -> H_0 -- pila
+     C_0 -> H_0
      C_0 -- H_1
      C_0 -- H_2
      C_0 -- C_1

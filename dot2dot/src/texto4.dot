@@ -1,4 +1,4 @@
-digraph pila {
+digraph test4 {
 one -> two
 two -> three
 three -> four

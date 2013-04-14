@@ -10,5 +10,6 @@ class ASTSubgraph extends SimpleNode {
     super(p, id);
   }
 
+  
 }
 /* JavaCC - OriginalChecksum=92e8f0cc8f75ef7c619f01347cacde47 (do not edit this line) */

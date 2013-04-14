@@ -39,6 +39,7 @@ public static void main(String args[]) throws ParseException,IOException {
         Dot2Dot dot2dot = new Dot2Dot(input);
 	SimpleNode root = dot2dot.DotGraph(); // devolve referência para o nó raiz da árvore
 	root.dump(""); // imprime no ecrã a árvore
+	System.out.println("\n\n\n");
 	}
 }
 PARSER_END(Dot2Dot)
@@ -102,10 +103,10 @@ SimpleNode DotGraph(): {}
 	Graph() {return jjtThis;} // código Java entre chavetas
 }
 
-void Graph(): {Token id = null;}
+void Graph( )#void: {Token id = null;}
 {
   [< STRICT >] < GRAPH > [id = < ID >] < LBRACK > [Stmt_list()] < RBRACK >
-  { jjtThis.value = id.image; }
+  { jjtThis.value = id.image; } #test(1)
 }
 
 void Stmt_list() #void: {}
@@ -152,7 +153,7 @@ void Attr_smt() #void: {}
 }
 
 void Node_id(): {Token id;}
-{
+{	
   id = < ID > [Port()]
   { jjtThis.value = id.image; }
 }
@@ -162,8 +163,9 @@ void Attr_list() #void: {}
   < LSQBRACK > [A_list()] < RSQBRACK > [Attr_list()] 
 }
 
-void A_list() #void: {}
-{	< ID > [ < EQUALS > < ID >] [< COMMA >] [A_list()]
+void A_list(): {Token attr = null;}
+{	< ID >  < EQUALS > attr = < ID > [< COMMA >] [A_list()]	
+	 { jjtThis.value = attr.image; }
 }
 
 void Subgraph(): {}
@@ -176,7 +178,8 @@ void Temo() #void: {}
 
 void EdgeRHS(): {Token directed = null; Token undirected = null;}
 {
-  ( (directed = < EDGEOP_DIRECTED > { jjtThis.value = directed.image; }) | (undirected = < EDGEOP_UNDIRECTED > { jjtThis.value = undirected.image; }) ) (Node_id() | Subgraph()) [EdgeRHS()]}
+  ( (directed = < EDGEOP_DIRECTED > { jjtThis.value = directed.image; }) 
+  | (undirected = < EDGEOP_UNDIRECTED > { jjtThis.value = undirected.image; }) ) (Node_id() | Subgraph()) [EdgeRHS()]}
 
 void Port(): {}
 {

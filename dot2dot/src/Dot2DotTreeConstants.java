@@ -2,26 +2,28 @@
 public interface Dot2DotTreeConstants
 {
   public int JJTDOTGRAPH = 0;
-  public int JJTGRAPH = 1;
-  public int JJTVOID = 2;
+  public int JJTVOID = 1;
+  public int JJTTEST = 2;
   public int JJTNOVA = 3;
   public int JJTEDGE_STMT = 4;
   public int JJTNODE_ID = 5;
-  public int JJTSUBGRAPH = 6;
-  public int JJTEDGERHS = 7;
-  public int JJTPORT = 8;
+  public int JJTA_LIST = 6;
+  public int JJTSUBGRAPH = 7;
+  public int JJTEDGERHS = 8;
+  public int JJTPORT = 9;
 
 
   public String[] jjtNodeName = {
     "DotGraph",
-    "Graph",
     "void",
+    "test",
     "Nova",
     "Edge_stmt",
     "Node_id",
+    "A_list",
     "Subgraph",
     "EdgeRHS",
     "Port",
   };
 }
-/* JavaCC - OriginalChecksum=6c96148621b3dd700a10aa9ab5c5c3e6 (do not edit this line) */
+/* JavaCC - OriginalChecksum=ca4126257765589fba699cbbdfda5607 (do not edit this line) */
