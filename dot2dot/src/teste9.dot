@@ -1,5 +1,5 @@
 digraph CFG {
-graph [rankdir = "LR"];
+graphs [rankdir = "LR"];
 0 [label="loadI", fontname="Tahoma"]
 0->1
  

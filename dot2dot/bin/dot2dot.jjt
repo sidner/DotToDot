@@ -48,24 +48,15 @@ SKIP :
 {
   //Semicolons aid readability but are not required except in the rare case that a named subgraph
   //with no body immediately preceeds an anonymous subgraph
-  " " | "\r" | "\t" |"\0"
+  "\r" | "\t" |"\0" | " "
 }
 // definição dos tokens (símbolos terminais)
-TOKEN:
-{
-  //What comes after this token is ignored if it is preceded by a <LF>
-  < CARDINAL: "#" >
-}
-TOKEN :
-{
- < INTEGER : (["0" - "9"])(["0" - "9"])* >
- | < LF : "\n" >
-}
+
 TOKEN [IGNORE_CASE] :
 {
   < GRAPH : "digraph" | "graph" > |
   < STRICT: "strict" > |
-  < ATTR_SMT: "graph" | "node" | "edge" > |
+  < ATTR_SMT: "node" | "edge" > |
   < SUBGRAPH: "subgraph" >
 }
 TOKEN :{  < COMPASS_PT: "n" | "ne" | "e" | "se" | "s" | "sw" | "w" | "nw" | "c" | "_" >
@@ -78,28 +69,76 @@ TOKEN :
 TOKEN :
 {
   //TODO ID use cases incomplete
-  < ID:  (<INTEGER>)+ | (<STRING>)  | ((["a"-"z","A"-"Z","_","#"])+ (<INTEGER>)?)+ >  
+  < ID:  (<NUMBER>) | (<STRING>)+  | ((["a"-"z","A"-"Z","_","#"])+ (<INTEGER>)?)+ | <HTML_STRING> >  
   
+}
+
+TOKEN :
+{
+ < NUMBER: ("-")? ("." (["0"-"9"])+) | ((["0"-"9"])+ ("." (["0"-"9"])*)?)>
+ | < LF : "\n" >
+}
+TOKEN :
+{
+ < INTEGER: (["0"-"9"])+ >	
 }
 TOKEN:
 {  	< EDGEOP_DIRECTED: "->" > |
   	< EDGEOP_UNDIRECTED: "--" >
 }
 
+TOKEN: 
+{
+  < HTML_STRING: ( "<" ( "<" (~[">"])* ">" (~["<", ">"])* )* ">" ) >
+}
+
+
+TOKEN:
+{
+  < CHARS: <LETTERS> | <UNDERSCORE> | <CARDINAL> | <WHITESPACE> | <DOT> | <SLASH> | 
+  (<LBRACK> (<LF>)?) | <RBRACK> | <LSQBRACK> | <RSQBRACK> | <COLON> | <SEMICOLON> | <EQUALS> |
+  <COMMA> | <MOREE> | <LESS> | <LPARENTHESIS> | <RPARENTHESIS> | <BACKSLASH> |
+  <MINUS> | <PLUS> >
+}
+ 
 TOKEN :
 {
-  < LBRACK: ("{" (<LF>)? )> |
-  < RBRACK: "}" > |
-  < LSQBRACK: "[" > |
-  < RSQBRACK: "]" > |
-  < COLON: ":" > |
-  < SEMICOLON: ";" > |
-  < EQUALS: "=" > |
-  < COMMA: "," > 
+ < STRING: ("\"") ( (<NUMBER>)? |
+ 	 ( (<NUMBER>)?( (["a"-"z","A"-"Z","_","#"," ","."])+ (<NUMBER>)?)+ )) ("\"") >
 }
-TOKEN :{
-< STRING: ("\"") ( (<INTEGER>)? | ( (<INTEGER>)?(["a"-"z","A"-"Z","_","#"," ","."])+ (<INTEGER>)?)+) ("\"") >
+ 
+ 
+ 
+ 
+ 
+TOKEN : 
+{
+ < LETTERS: ["a"-"z","A"-"Z"] > |
+ < UNDERSCORE: "_"> |
+ < CARDINAL: "#">   |
+
+ < DOT: ".">    |
+ < BACKSLASH: "\\">  |
+ < SLASH: "/" > |
+ < LBRACK: "{" > |
+ < RBRACK: "}" > |
+ < LSQBRACK: "[" > |
+ < RSQBRACK: "]" > |
+ < COLON: ":" > |
+ < SEMICOLON: ";" > |
+ < EQUALS: "=" > |
+ < COMMA: "," > |
+ < MOREE: ">">   |
+ < LESS: "<" >  |
+ < LPARENTHESIS: "(" >  |
+ < RPARENTHESIS: ")" >  |
+ < MINUS: "-"> |
+ < PLUS: "+" >
 }
+
+
+
+
 SimpleNode DotGraph(): {} 
 {
 	Graph() {return jjtThis;} // código Java entre chavetas
@@ -154,7 +193,7 @@ void Edge_stmt(): {}
 
 void Attr_smt() #void: {}
 {
-  < ATTR_SMT > Attr_list()
+  (< ATTR_SMT > | "graph") Attr_list()
 }
 
 void Node_id(): {Token id;}

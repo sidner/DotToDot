@@ -1,4 +1,4 @@
-digraph G {
+digraph G {  
   1 [ label="\{outputS\} \[ILOC add numbers calculation\n\n\]" ];
   2 [ label="\{outputS\} \[Enter the number of integers you want to add\n\]" ];
   3 [ label="\{inputIntToReg\} =\> \[rn\]" ];

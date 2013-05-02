@@ -9,47 +9,75 @@ public interface Dot2DotConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int CARDINAL = 5;
+  int GRAPH = 4;
   /** RegularExpression Id. */
-  int INTEGER = 6;
+  int STRICT = 5;
   /** RegularExpression Id. */
-  int LF = 7;
+  int ATTR_SMT = 6;
   /** RegularExpression Id. */
-  int GRAPH = 8;
+  int SUBGRAPH = 7;
   /** RegularExpression Id. */
-  int STRICT = 9;
+  int COMPASS_PT = 8;
   /** RegularExpression Id. */
-  int ATTR_SMT = 10;
+  int NODE = 9;
   /** RegularExpression Id. */
-  int SUBGRAPH = 11;
+  int ID = 10;
   /** RegularExpression Id. */
-  int COMPASS_PT = 12;
+  int INTEGER = 11;
   /** RegularExpression Id. */
-  int NODE = 13;
+  int EDGEOP_DIRECTED = 12;
   /** RegularExpression Id. */
-  int ID = 14;
+  int EDGEOP_UNDIRECTED = 13;
   /** RegularExpression Id. */
-  int EDGEOP_DIRECTED = 15;
+  int HTML_STRING = 14;
   /** RegularExpression Id. */
-  int EDGEOP_UNDIRECTED = 16;
+  int STRING = 15;
   /** RegularExpression Id. */
-  int LBRACK = 17;
+  int NUMBER = 16;
   /** RegularExpression Id. */
-  int RBRACK = 18;
+  int LF = 17;
   /** RegularExpression Id. */
-  int LSQBRACK = 19;
+  int LETTERS = 18;
   /** RegularExpression Id. */
-  int RSQBRACK = 20;
+  int UNDERSCORE = 19;
   /** RegularExpression Id. */
-  int COLON = 21;
+  int CARDINAL = 20;
   /** RegularExpression Id. */
-  int SEMICOLON = 22;
+  int WHITESPACE = 21;
   /** RegularExpression Id. */
-  int EQUALS = 23;
+  int DOT = 22;
   /** RegularExpression Id. */
-  int COMMA = 24;
+  int BACKSLASH = 23;
   /** RegularExpression Id. */
-  int STRING = 25;
+  int SLASH = 24;
+  /** RegularExpression Id. */
+  int LBRACK = 25;
+  /** RegularExpression Id. */
+  int RBRACK = 26;
+  /** RegularExpression Id. */
+  int LSQBRACK = 27;
+  /** RegularExpression Id. */
+  int RSQBRACK = 28;
+  /** RegularExpression Id. */
+  int COLON = 29;
+  /** RegularExpression Id. */
+  int SEMICOLON = 30;
+  /** RegularExpression Id. */
+  int EQUALS = 31;
+  /** RegularExpression Id. */
+  int COMMA = 32;
+  /** RegularExpression Id. */
+  int MOREE = 33;
+  /** RegularExpression Id. */
+  int LESS = 34;
+  /** RegularExpression Id. */
+  int LPARENTHESIS = 35;
+  /** RegularExpression Id. */
+  int RPARENTHESIS = 36;
+  /** RegularExpression Id. */
+  int MINUS = 37;
+  /** RegularExpression Id. */
+  int PLUS = 38;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -57,13 +85,9 @@ public interface Dot2DotConstants {
   /** Literal token values. */
   String[] tokenImage = {
     "<EOF>",
-    "\" \"",
     "\"\\r\"",
     "\"\\t\"",
     "\"\\u0000\"",
-    "\"#\"",
-    "<INTEGER>",
-    "\"\\n\"",
     "<GRAPH>",
     "\"strict\"",
     "<ATTR_SMT>",
@@ -71,9 +95,21 @@ public interface Dot2DotConstants {
     "<COMPASS_PT>",
     "\"node\"",
     "<ID>",
+    "<INTEGER>",
     "\"->\"",
     "\"--\"",
-    "<LBRACK>",
+    "<HTML_STRING>",
+    "<STRING>",
+    "<NUMBER>",
+    "\"\\n\"",
+    "<LETTERS>",
+    "\"_\"",
+    "\"#\"",
+    "\" \"",
+    "\".\"",
+    "\"\\\\\"",
+    "\"/\"",
+    "\"{\"",
     "\"}\"",
     "\"[\"",
     "\"]\"",
@@ -81,7 +117,13 @@ public interface Dot2DotConstants {
     "\";\"",
     "\"=\"",
     "\",\"",
-    "<STRING>",
+    "\">\"",
+    "\"<\"",
+    "\"(\"",
+    "\")\"",
+    "\"-\"",
+    "\"+\"",
+    "\"graph\"",
   };
 
 }
