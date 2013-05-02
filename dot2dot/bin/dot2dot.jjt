@@ -48,7 +48,7 @@ SKIP :
 {
   //Semicolons aid readability but are not required except in the rare case that a named subgraph
   //with no body immediately preceeds an anonymous subgraph
-  " " | "\r" | "\t" |"\"" |"\0"
+  " " | "\r" | "\t" |"\0"
 }
 // definição dos tokens (símbolos terminais)
 TOKEN:
@@ -58,7 +58,7 @@ TOKEN:
 }
 TOKEN :
 {
- < INTEGER : (["0" - "9"])+ >
+ < INTEGER : (["0" - "9"])(["0" - "9"])* >
  | < LF : "\n" >
 }
 TOKEN [IGNORE_CASE] :
@@ -78,7 +78,7 @@ TOKEN :
 TOKEN :
 {
   //TODO ID use cases incomplete
-  < ID: ( ["a"-"z","A"-"Z","_","#"](<INTEGER>)?)+ >  
+  < ID:  (<INTEGER>)+ | (<STRING>)  | ((["a"-"z","A"-"Z","_","#"])+ (<INTEGER>)?)+ >  
   
 }
 TOKEN:
@@ -97,7 +97,9 @@ TOKEN :
   < EQUALS: "=" > |
   < COMMA: "," > 
 }
-
+TOKEN :{
+< STRING: ("\"") ( (<INTEGER>)? | ( (<INTEGER>)?(["a"-"z","A"-"Z","_","#"," ","."])+ (<INTEGER>)?)+) ("\"") >
+}
 SimpleNode DotGraph(): {} 
 {
 	Graph() {return jjtThis;} // código Java entre chavetas
@@ -106,7 +108,10 @@ SimpleNode DotGraph(): {}
 void Graph( )#void: {Token id = null;}
 {
   [< STRICT >] < GRAPH > [id = < ID >] < LBRACK > [Stmt_list()] < RBRACK >
-  { jjtThis.value = id.image; } #test(1)
+  
+  { jjtThis.value = id.image; 
+  	System.out.println("id.image" + " " + id.image);
+  } #test(1)
 }
 
 void Stmt_list() #void: {}
