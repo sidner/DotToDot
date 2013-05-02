@@ -106,6 +106,7 @@ public static void main(String args[]) throws ParseException,IOException {
     jjtree.closeNodeScope(jjtn001,  1);
     jjtc001 = false;
     jjtn001.value = id.image;
+        System.out.println("id.image" + " " + id.image);
     } finally {
     if (jjtc001) {
       jjtree.closeNodeScope(jjtn001,  1);
@@ -540,7 +541,7 @@ void Node_stmt(): {}
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x400,0x8000,0x49800,0x800000,0x49800,0x49800,0x1000000,0x400000,0x100000,0x30000,0x400000,0x8000,0x100000,0x2000000,0x8000,0x8000,0x1000,0x100000,0x30000,0x49000,0x30000,0x400000,0xa000,};
+      jj_la1_0 = new int[] {0x200,0x4000,0x24c00,0x400000,0x24c00,0x24c00,0x800000,0x200000,0x80000,0x18000,0x200000,0x4000,0x80000,0x1000000,0x4000,0x4000,0x800,0x80000,0x18000,0x24800,0x18000,0x200000,0x5000,};
    }
 
   /** Constructor with InputStream. */

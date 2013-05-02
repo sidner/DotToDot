@@ -55,7 +55,7 @@ public class TestCase {
 				{	texto6[0]= "src/teste"+i+".dot";
 				
 			Dot2Dot.main(texto6);
-			String temp= "passei"+ "teste"+ i;
+			String temp= "passei "+ "teste "+ i;
 			System.out.println(temp);
 				}
 	}
